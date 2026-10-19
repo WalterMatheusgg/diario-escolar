@@ -1,226 +1,72 @@
-```markdown
+<div align="center">
+
 # 🏫 Sistema de Gestão Escolar
+### Aplicação desktop para cadastro acadêmico
 
-Sistema de gestão acadêmica desenvolvido em **Python 3** com **Tkinter** e **SQLite**, projetado para oferecer uma interface intuitiva e eficiente na administração de alunos, disciplinas, matrículas e notas.  
-A aplicação foi desenvolvida com foco em **usabilidade, integridade de dados e escalabilidade**, podendo ser adaptada para instituições de diferentes portes.
+![Python](https://img.shields.io/badge/Python-3-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Tkinter](https://img.shields.io/badge/Tkinter-Desktop-2563EB?style=for-the-badge)
+![SQLite](https://img.shields.io/badge/SQLite-Local-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![CSV](https://img.shields.io/badge/CSV-Exportação-64748B?style=for-the-badge)
 
----
+</div>
 
-## 📌 Sumário
-1. [Visão Geral](#visão-geral)
-2. [Funcionalidades](#funcionalidades)
-3. [Tecnologias Utilizadas](#tecnologias-utilizadas)
-4. [Estrutura do Projeto](#estrutura-do-projeto)
-5. [Instalação e Execução](#instalação-e-execução)
-6. [Banco de Dados](#banco-de-dados)
-7. [Exportação e Backup](#exportação-e-backup)
-8. [Destaques Técnicos](#destaques-técnicos)
-9. [Autor](#autor)
-10. [Licença](#licença)
+## 🎯 Visão geral
 
----
+Aplicação desktop para **cadastro e acompanhamento de alunos, disciplinas, matrículas e notas**, construída com Python, Tkinter e SQLite. O projeto separa interface, persistência, validações e exportação de arquivos em módulos próprios.
 
-## 📖 Visão Geral
+## ✨ Funcionalidades
 
-O **Sistema de Gestão Escolar** tem como objetivo centralizar e automatizar processos administrativos de instituições de ensino, permitindo o gerenciamento completo de alunos, disciplinas, matrículas e notas em um ambiente integrado.
+| Módulo | Recursos |
+|---|---|
+| 👩‍🎓 Alunos | Cadastro, consulta, matrícula sequencial e validações |
+| 📚 Disciplinas | Cadastro com professor, turno, sala e série |
+| 🧾 Matrículas | Associação entre alunos e disciplinas, com unicidade no banco |
+| 📝 Notas | Avaliações, lançamento de resultados e cálculo de médias |
+| 📊 Consultas | Visualização de registros relacionados |
+| 📁 Exportação | Rotinas para gerar arquivos CSV de dados acadêmicos |
 
-O sistema adota uma arquitetura modular, separando a interface gráfica, regras de negócio e persistência de dados em arquivos distintos, seguindo boas práticas de desenvolvimento e manutenção.
+## 🏗️ Arquitetura
 
----
-
-## ⚙️ Funcionalidades
-
-### 👩‍🎓 Módulo de Alunos
-- Cadastro de alunos com informações completas:
-  - Nome completo  
-  - Data de nascimento (com cálculo automático da idade)  
-  - CPF, e-mail, telefone  
-  - Endereço, série/turma, responsável e observações  
-- Validação automática de dados e verificação de duplicidades.
-- Matrícula gerada automaticamente.
-
-### 📚 Módulo de Disciplinas
-- Cadastro de disciplinas com:
-  - Nome  
-  - Professor responsável  
-  - Turno (manhã, tarde, noite)  
-  - Sala de aula  
-  - Série vinculada  
-- Integração direta com o módulo de matrículas e notas.
-
-### 🧾 Módulo de Matrículas
-- Associação de alunos às disciplinas compatíveis com sua série.
-- Exibição automática das informações do aluno selecionado.
-- Listagem das disciplinas nas quais o aluno está matriculado.
-
-### 🧮 Módulo de Notas
-- Lançamento de avaliações com:
-  - Seleção de aluno e disciplina (apenas as disciplinas em que está matriculado)  
-  - Tipo de avaliação (prova, trabalho, projeto, etc.)  
-  - Validação de notas de 0 a 10  
-- Prevenção de lançamentos duplicados e atualização automática da média.
-
-### 👁️ Módulo de Visualização
-- Consulta completa de informações:
-  - Dados cadastrais do aluno  
-  - Disciplinas matriculadas  
-  - Notas e médias por disciplina  
-- Visualização global ou individual.
-- Exportação de relatórios em CSV com um clique.
-
----
-
-## 🧩 Tecnologias Utilizadas
-
-| Componente | Tecnologia |
-|-------------|-------------|
-| Linguagem | Python 3.x |
-| Interface gráfica | Tkinter / ttk |
-| Banco de dados | SQLite3 |
-| Formato de exportação | CSV |
-| Padrões de código | PEP 8 |
-
----
-
-## 📁 Estrutura do Projeto
-
+```mermaid
+flowchart LR
+A["Tkinter / ttk • main.py"] --> B["Validações • validacao.py"]
+A --> C["Banco • banco.py"]
+C --> D[("SQLite")]
+A --> E["Exportação • arquivo.py"]
 ```
 
-sistema_gestao_escolar_realista/
-│
-├── main.py                  # Interface principal (GUI)
-├── banco.py                 # Conexão e operações no banco de dados SQLite
-├── validacao.py             # Funções de validação de campos e regras de negócio
-├── arquivo.py               # Módulo de exportação de dados em CSV
-│
-├── database/
-│   └── escola_realista.db   # Banco de dados gerado automaticamente
-│
-├── arquivos/
-│   ├── alunos.csv
-│   ├── disciplinas.csv
-│   ├── matriculas.csv
-│   └── notas.csv
-│
-└── README.md
+```text
+main.py        # Aplicação e interface gráfica
+banco.py       # Schema e operações SQLite
+validacao.py   # Regras de validação
+arquivo.py     # Exportações CSV
+database/      # Criado localmente para o SQLite
+```
 
-````
+O schema prevê chaves primárias, vínculos entre tabelas e restrições de unicidade para matrículas e avaliações.
 
----
+## 🚀 Executar localmente
 
-## 💻 Instalação e Execução
+**Pré-requisitos:** Python 3 com `tkinter` e bibliotecas padrão disponíveis, ambiente gráfico e permissão para criar arquivos locais.
 
-### Pré-requisitos
-- **Python 3.6+**
-- Sistema operacional compatível: Windows, Linux ou macOS
-- Nenhum pacote externo é necessário (somente bibliotecas padrão do Python)
-
-### Passos para execução
 ```bash
-# 1. Clonar ou extrair o projeto
-cd sistema_gestao_escolar_realista
+git clone https://github.com/WalterMatheusgg/Sistema_de_Gestao_Escolar.git
+cd Sistema_de_Gestao_Escolar
+python3 main.py
+```
 
-# 2. Executar a aplicação
-python main.py
-````
+A função `init_db()` inicializa a estrutura SQLite no início da aplicação. Os dados ficam em um arquivo local criado dentro de `database/`.
 
----
+> Execute com dados de teste. O sistema é um projeto de demonstração; não presume requisitos de privacidade, backups, acesso multiusuário ou homologação para uso institucional.
 
-## 🗄️ Banco de Dados
+## 🧠 Diferenciais demonstrados
 
-O sistema utiliza **SQLite3**, um banco de dados leve e local, armazenado em `database/escola_realista.db`.
-
-### Estrutura das Tabelas
-
-**Tabela `alunos`**
-
-| Campo           | Tipo      | Descrição                    |
-| --------------- | --------- | ---------------------------- |
-| matricula       | TEXT (PK) | Identificador único do aluno |
-| nome            | TEXT      | Nome completo                |
-| data_nascimento | TEXT      | Data de nascimento           |
-| cpf             | TEXT      | CPF                          |
-| email           | TEXT      | E-mail                       |
-| telefone        | TEXT      | Telefone                     |
-| endereco        | TEXT      | Endereço completo            |
-| serie           | TEXT      | Série/Turma                  |
-| idade           | INTEGER   | Idade calculada              |
-
-**Tabela `disciplinas`**
-
-| Campo     | Tipo         | Descrição                   |
-| --------- | ------------ | --------------------------- |
-| id        | INTEGER (PK) | Identificador da disciplina |
-| nome      | TEXT         | Nome da disciplina          |
-| professor | TEXT         | Professor responsável       |
-| turno     | TEXT         | Turno                       |
-| sala      | TEXT         | Sala de aula                |
-| serie     | TEXT         | Série vinculada             |
-
-**Tabela `matriculas`**
-
-| Campo           | Tipo         | Descrição                  |
-| --------------- | ------------ | -------------------------- |
-| id              | INTEGER (PK) | Identificador da matrícula |
-| matricula_aluno | TEXT         | Matrícula do aluno         |
-| id_disciplina   | INTEGER      | ID da disciplina vinculada |
-
-**Tabela `notas`**
-
-| Campo           | Tipo         | Descrição             |
-| --------------- | ------------ | --------------------- |
-| id              | INTEGER (PK) | Identificador da nota |
-| matricula_aluno | TEXT         | Matrícula do aluno    |
-| id_disciplina   | INTEGER      | ID da disciplina      |
-| avaliacao       | TEXT         | Tipo de avaliação     |
-| valor           | REAL         | Nota (0 a 10)         |
-
----
-
-## 📤 Exportação e Backup
-
-O sistema gera automaticamente arquivos CSV contendo:
-
-* **alunos.csv**
-* **disciplinas.csv**
-* **matriculas.csv**
-* **notas.csv**
-
-Os arquivos são salvos na pasta `/arquivos/` e podem ser utilizados para análise externa ou importação em outros sistemas.
-
----
-
-## 🧠 Destaques Técnicos
-
-* Interface gráfica desenvolvida em **Tkinter com ttk**, organizada em abas.
-* Arquitetura modular com separação clara entre interface, lógica e persistência.
-* Combobox dinâmicas com **filtro por série e aluno**.
-* Controle de duplicidade em matrículas e notas.
-* Exportação rápida de dados em formato CSV.
-* Código estruturado conforme padrões **PEP 8**.
-
----
+- Interface desktop separada da camada de persistência.
+- Modelagem relacional simples com vínculos e restrições.
+- Rotinas de consulta e exportação.
+- Validação de campos e tratamento de fluxos de cadastro.
 
 ## 👨‍💻 Autor
 
-**Walter Matheus**  
-Desenvolvedor Júnior Python especializado em automação, análise de dados e desenvolvimento de sistemas administrativos.  
-
-📧 **E-mail:** [waltermatheus688@gmail.com](mailto:waltermatheus688@gmail.com)  
-💼 **LinkedIn:** [linkedin.com/in/walter504](https://www.linkedin.com/in/walter504/)
-
----
-## 🧾 Licença
-
-Este projeto está licenciado sob a **MIT License**.
-Você pode utilizá-lo, modificá-lo e distribuí-lo livremente, desde que mantenha os créditos originais.
-
----
-
-<p align="center">
-  © 2025 — Sistema de Gestão Escolar Realista<br>
-  Desenvolvido com 💻 e ☕ por <b>Walter Matheus</b><br>
-  <a href="https://www.linkedin.com/in/walter504/">LinkedIn</a> |
-  <a href="https://github.com/WalterMatheus">GitHub</a>
-</p>
-
+**Walter Matheus Soares da Silva** · Desenvolvedor Full Stack  
+[GitHub](https://github.com/WalterMatheusgg) · [LinkedIn](https://www.linkedin.com/in/walter504/)
