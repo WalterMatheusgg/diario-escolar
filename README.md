@@ -50,8 +50,8 @@ O schema prevê chaves primárias, vínculos entre tabelas e restrições de uni
 **Pré-requisitos:** Python 3 com `tkinter` e bibliotecas padrão disponíveis, ambiente gráfico e permissão para criar arquivos locais.
 
 ```bash
-git clone https://github.com/WalterMatheusgg/Sistema_de_Gestao_Escolar.git
-cd Sistema_de_Gestao_Escolar
+git clone https://github.com/WalterMatheusgg/diario-escolar.git
+cd diario-escolar
 python3 main.py
 ```
 
